@@ -1,99 +1,37 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // Select all filter buttons
+    let filterButtons = document.querySelectorAll("#portfolio-flters li");
 
-//  !(function($) {
-//  // Porfolio isotope and filter
-//   $(window).on('load', function() {
-//     var portfolioIsotope = $('.main-project-div').isotope({
-//         itemSelector: '.main-project-div-inner',
-//         layoutMode: 'fitRows'
-//     });
-//     console.log(portfolioIsotope);
+    // Select all project elements
+    let projects = document.querySelectorAll(".main-project-div-inner");
 
-//     $('#portfolio-flters li').on('click', function() {
-//       $("#portfolio-flters li").removeClass('filter-active');
-//       $(this).addClass('filter-active');
-//       console.log("dfsdfsdfs")
+    // Add click event listener to each filter button
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            // Step 1: Remove the 'filter-active' class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove("filter-active"));
 
-//       portfolioIsotope.isotope({
-//         filter: $(this).data('filter')
-//       });
-//     });
+            // Step 2: Add 'filter-active' class to the clicked button
+            this.classList.add("filter-active");
 
-//   });
+            // Step 3: Get the filter category from the clicked button
+            let filterValue = this.getAttribute("data-filter");
 
-//   // Initiate venobox (lightbox feature used in portofilo)
-//   $(document).ready(function() {
-//     $('.venobox').venobox();
-//   });
-
-// })(jQuery);
-
-var handle = document.getElementsByTagName("li");
-var project = document.getElementsByClassName("main-project-div-inner");
-var projectContainer = document.getElementsByClassName("main-project-div")[0]
-
-for (var i = 0; i < handle.length; i++) {
-    
-    handle[i].onclick = (e) => {
-        if (e.target.innerHTML === "All") {
-            
-            location.reload();
-        } else if (e.target.innerHTML === "WordPress") {
-          
-            var projectHTML = []; // Reset array
-            for (let j = 0; j < project.length; j++) {  // Use 'let' instead of 'var'
-                if (project[j].getAttribute("data-set") == "wordpress") {
-                   
-                    projectHTML.push(project[j]);
+            // Step 4: Loop through all projects and filter them
+            projects.forEach(project => {
+                if (filterValue === "*") {
+                    // Show all projects if 'All' is selected
+                    project.style.display = "block";
+                } else if (project.classList.contains(filterValue.substring(1))) {
+                    // Show the project if it matches the selected filter
+                    project.style.display = "block";
+                } else {
+                    // Hide the project if it does not match
+                    project.style.display = "none";
                 }
-            }
-            projectContainer.innerHTML = "";
-            projectHTML.forEach((item) => {
-                projectContainer.appendChild(item.cloneNode(true)); // Append filtered items
             });
-        }
-        else if(e.target.innerHTML === "Vue"){     
-           
-            var projectHTML = []; // Reset array
-            for (let j = 0; j < project.length; j++) {  // Use 'let' instead of 'var'
-                if (project[j].getAttribute("data-set") == "Vue") {                    
-                    projectHTML.push(project[j]);
-                }
-            }
-            
-            projectContainer.innerHTML = "";
-            projectHTML.forEach((item) => {
-                projectContainer.appendChild(item.cloneNode(true)); // Append filtered items
-            });
-        }
-        else if(e.target.innerHTML === "React"){
-            
-            var projectHTML = []; // Reset array
-            for (let j = 0; j < project.length; j++) {  // Use 'let' instead of 'var'
-                if (project[j].getAttribute("data-set") == "React") {
-                    
-                    projectHTML.push(project[j]);
-                }
-            }
-            projectContainer.innerHTML = "";
-            projectHTML.forEach((item) => {
-                projectContainer.appendChild(item.cloneNode(true)); // Append filtered items
-            });
-        }
-        else if(e.target.innerHTML === "Shopify"){
-          
-            var projectHTML = []; // Reset array
-            for (let j = 0; j < project.length; j++) {  // Use 'let' instead of 'var'
-                if (project[j].getAttribute("data-set") == "Shopify") {                    
-                    projectHTML.push(project[j]);
-                }
-            }
-            projectContainer.innerHTML = "";
-            projectHTML.forEach((item) => {
-                projectContainer.appendChild(item.cloneNode(true)); // Append filtered items
-            });
-        }
-    }
-}
-
+        });
+    });
+});
 
 

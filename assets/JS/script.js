@@ -20,7 +20,7 @@ function nav_close() {
 };
 
 function contact() {
-  window.location.href = "https://wa.me/9110155364/";
+  window.location.href = "https://www.chatwork.com/me_call001";
 };
 
 
